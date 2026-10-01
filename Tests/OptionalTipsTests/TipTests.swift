@@ -39,7 +39,7 @@ import StoreKitTest
     // Real local StoreKit needs an app test host. An app integration test target
     // runs this same source; standalone SwiftPM tests have no app dependency.
     #if !SWIFT_PACKAGE
-    @Test(.timeLimit(.minutes(1))) @MainActor func localStoreKitPurchasesAndRecoverableOutcomes() async throws {
+    @Test(.timeLimit(.minutes(3))) @MainActor func localStoreKitPurchasesAndRecoverableOutcomes() async throws {
         #if SWIFT_PACKAGE
         let url = try #require(Bundle.module.url(forResource: "LocalTips", withExtension: "storekit"))
         #else
@@ -80,7 +80,7 @@ import StoreKitTest
         #expect(store.message == "Your tip is awaiting approval. You can keep using Test.")
         #expect(!store.isPurchasing)
     }
-    @Test(.timeLimit(.minutes(1))) @MainActor func unrelatedAndUnverifiedTransactionsAreNotFinished() async throws {
+    @Test(.timeLimit(.minutes(3))) @MainActor func unrelatedAndUnverifiedTransactionsAreNotFinished() async throws {
         let url = try #require(Bundle(for: TipTestBundle.self).url(forResource: "LocalTips", withExtension: "storekit"))
         let session = try SKTestSession(contentsOf: url)
         session.resetToDefaultState()

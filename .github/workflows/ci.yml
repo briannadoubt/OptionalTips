@@ -47,4 +47,4 @@ jobs:
           xcodebuild -project Examples/TipJarDemo/TipJarDemo.xcodeproj
           -scheme TipJarDemo-iOS
           -destination "platform=iOS Simulator,id=$TIP_SIMULATOR_ID"
-          CODE_SIGN_IDENTITY=- test
+          CODE_SIGN_IDENTITY=- -collect-test-diagnostics never test

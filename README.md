@@ -21,7 +21,7 @@ https://github.com/briannadoubt/OptionalTips
 Or add it to your package manifest:
 
 ```swift
-.package(url: "https://github.com/briannadoubt/OptionalTips.git", from: "0.1.0")
+.package(url: "https://github.com/briannadoubt/OptionalTips.git", from: "0.1.1")
 ```
 
 Add the `OptionalTips` product to your app target.

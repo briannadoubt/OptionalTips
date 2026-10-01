@@ -10,6 +10,7 @@ import StoreKit
     public private(set) var isPurchasing = false
     public private(set) var message: String?
     @ObservationIgnored private var updatesTask: Task<Void, Never>?
+    @ObservationIgnored var finishTransaction: @MainActor (Transaction) async -> Void = { await $0.finish() }
     @ObservationIgnored private var handled: Set<UInt64> = []
 
     public init(configuration: TipConfiguration, listenForUpdates: Bool = true) {
@@ -81,7 +82,7 @@ import StoreKit
             guard productIDs.contains(transaction.productID), transaction.productType == .consumable else { return }
             // A revoked tip never earns a thank-you and has no gameplay effect.
             let first = handled.insert(transaction.id).inserted
-            await transaction.finish()
+            await finishTransaction(transaction)
             if first, transaction.revocationDate == nil { message = String(localized: "Thank you for supporting \(configuration.appName)!", bundle: .module) }
         case .unverified(let transaction, _):
             guard productIDs.contains(transaction.productID) else { return }

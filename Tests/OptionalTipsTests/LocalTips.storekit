@@ -106,6 +106,21 @@
       "productID": "local.test.optionaltips.usd100",
       "referenceName": "Local test 100",
       "type": "Consumable"
+    },
+    {
+      "displayPrice": "99.00",
+      "familyShareable": false,
+      "internalID": "999999",
+      "localizations": [
+        {
+          "description": "Local ownership-isolation fixture.",
+          "displayName": "Unrelated Consumable",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.unrelated",
+      "referenceName": "Unrelated local product",
+      "type": "Consumable"
     }
   ],
   "settings": {

@@ -80,6 +80,40 @@ import StoreKitTest
         #expect(store.message == "Your tip is awaiting approval. You can keep using Test.")
         #expect(!store.isPurchasing)
     }
+    @Test(.timeLimit(.minutes(1))) @MainActor func unrelatedAndUnverifiedTransactionsAreNotFinished() async throws {
+        let url = try #require(Bundle(for: TipTestBundle.self).url(forResource: "LocalTips", withExtension: "storekit"))
+        let session = try SKTestSession(contentsOf: url)
+        session.resetToDefaultState()
+        session.disableDialogs = true
+        session.clearTransactions()
+        defer { session.clearTransactions() }
+        let store = TipStore(configuration: .init(appName: "Test", products: [.init(id: "local.test.optionaltips.usd5", intendedUSD: 5)]), listenForUpdates: false)
+        await store.load()
+        var finishCalls = 0
+        store.finishTransaction = { _ in finishCalls += 1 }
+        let own = try #require(store.products.first)
+        let foreign = try #require(try await Product.products(for: ["local.test.unrelated"]).first)
+        let foreignResult = try await foreign.purchase()
+        guard case .success(.verified(let foreignTransaction)) = foreignResult else {
+            Issue.record("Expected a verified local foreign fixture transaction")
+            return
+        }
+        await store.purchase(own, using: { _ in foreignResult })
+        #expect(store.message == nil)
+        let ownResult = try await own.purchase()
+        guard case .success(.verified(let ownTransaction)) = ownResult else {
+            Issue.record("Expected a verified local tip fixture transaction")
+            return
+        }
+        await store.purchase(own, using: { _ in .success(.unverified(ownTransaction, .invalidSignature)) })
+        #expect(store.message == "The tip could not be verified. Please contact Apple Support.")
+        #expect(finishCalls == 0)
+        await store.purchase(own, using: { _ in .success(.verified(ownTransaction)) })
+        #expect(finishCalls == 1)
+        // Test cleanup is explicit; the library did not finish either result.
+        await foreignTransaction.finish()
+        await ownTransaction.finish()
+    }
     #endif
 }
 #if !SWIFT_PACKAGE

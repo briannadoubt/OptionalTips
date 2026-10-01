@@ -4,6 +4,8 @@ A small, native tip jar for SwiftUI. Support stays optional. Your app stays your
 
 **StoreKit 2 · Swift 6 · SwiftUI · MIT**
 
+[![Swift and StoreKit](https://github.com/briannadoubt/OptionalTips/actions/workflows/ci.yml/badge.svg)](https://github.com/briannadoubt/OptionalTips/actions/workflows/ci.yml)
+
 OptionalTips gives you a ready-to-present sheet, localized StoreKit prices,
 repeatable consumable purchases, and transaction recovery. It has no paywall,
 entitlements, analytics, backend, or third-party dependencies.
@@ -105,7 +107,8 @@ swift test
 Standalone tests cover configuration, unavailable products, load errors, and
 cancellation. StoreKit session tests need a signed app host; run the demo's iOS
 test action to verify local product loading, featured tiers, verified repeatable
-purchases, purchase errors/cancellation, and Ask to Buy pending. These are local
+purchases, purchase errors/cancellation, Ask to Buy pending, and ownership
+isolation for unrelated/unverified transactions. These are local
 simulated transactions, never proof of a production purchase.
 
 CI runs standalone tests, the Mac example build, and signed local iOS StoreKit

@@ -1,6 +1,4 @@
-// Older Apple SDKs lack Sendable annotations on SwiftUI PurchaseAction.
-// Calls remain confined to the main actor; retain SwiftUI purchase presentation.
-@preconcurrency import SwiftUI
+import SwiftUI
 import StoreKit
 import Accessibility
 
@@ -9,6 +7,7 @@ import Accessibility
     public init(tips: TipStore) { self.tips = tips }
     @Environment(\.purchase) private var purchase
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var showsMore = false
 
     public var body: some View {
@@ -21,12 +20,25 @@ import Accessibility
                     if tips.isLoading { ProgressView(String(localized: "Loading tips…", bundle: .module)) }
                     ForEach(showsMore ? tips.products : tips.featuredProducts) { product in
                         Button {
-                            Task { await tips.purchase(product, using: { try await purchase($0) }) }
+                            // Capture a fresh environment action for this operation.
+                            // Do not send the view's actor-isolated property getter.
+                            let purchaseAction = purchase
+                            Task { @MainActor in
+                                await tips.purchase(product, using: { try await purchaseAction($0) })
+                            }
                         } label: {
-                            HStack {
-                                Text(product.displayName).fixedSize(horizontal: false, vertical: true)
-                                Spacer()
-                                Text(product.displayPrice).fixedSize()
+                            if dynamicTypeSize.isAccessibilitySize {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(product.displayName)
+                                    Text(product.displayPrice)
+                                }
+                                .fixedSize(horizontal: false, vertical: true)
+                            } else {
+                                HStack {
+                                    Text(product.displayName).fixedSize(horizontal: false, vertical: true)
+                                    Spacer()
+                                    Text(product.displayPrice).fixedSize()
+                                }
                             }
                         }
                         .disabled(tips.isPurchasing || !AppStore.canMakePayments)

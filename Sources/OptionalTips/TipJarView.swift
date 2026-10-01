@@ -1,8 +1,10 @@
-import SwiftUI
+// Older Apple SDKs lack Sendable annotations on SwiftUI PurchaseAction.
+// Calls remain confined to the main actor; retain SwiftUI purchase presentation.
+@preconcurrency import SwiftUI
 import StoreKit
 import Accessibility
 
-public struct TipJarView: View {
+@MainActor public struct TipJarView: View {
     let tips: TipStore
     public init(tips: TipStore) { self.tips = tips }
     @Environment(\.purchase) private var purchase

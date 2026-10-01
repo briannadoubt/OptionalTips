@@ -54,7 +54,7 @@ import StoreKit
         }
     }
 
-    public func purchase(_ product: Product, using action: (Product) async throws -> Product.PurchaseResult) async {
+    public func purchase(_ product: Product, using action: @MainActor (Product) async throws -> Product.PurchaseResult) async {
         guard !isPurchasing, productIDs.contains(product.id), product.type == .consumable else { return }
         guard AppStore.canMakePayments else {
             message = String(localized: "Purchases are disabled on this device. You can keep using \(configuration.appName).", bundle: .module)

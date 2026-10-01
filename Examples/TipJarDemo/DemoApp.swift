@@ -1,7 +1,7 @@
 import SwiftUI
 import OptionalTips
 
-@main struct TipJarDemoApp: App {
+@main @MainActor struct TipJarDemoApp: App {
     // These identifiers exist only in the checked-in local StoreKit fixture.
     // Replace them with your app's confirmed products before production use.
     @State private var tips = TipStore(configuration: .init(

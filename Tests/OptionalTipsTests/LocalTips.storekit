@@ -1,0 +1,122 @@
+{
+  "identifier": "BE093C43-BE90-4EDC-A62D-5EEDE34732F9",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "1.00",
+      "familyShareable": false,
+      "internalID": "900001",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "1 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd1",
+      "referenceName": "Local test 1",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "3.00",
+      "familyShareable": false,
+      "internalID": "900003",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "3 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd3",
+      "referenceName": "Local test 3",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "5.00",
+      "familyShareable": false,
+      "internalID": "900005",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "5 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd5",
+      "referenceName": "Local test 5",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "10.00",
+      "familyShareable": false,
+      "internalID": "900010",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "10 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd10",
+      "referenceName": "Local test 10",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "20.00",
+      "familyShareable": false,
+      "internalID": "900020",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "20 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd20",
+      "referenceName": "Local test 20",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "50.00",
+      "familyShareable": false,
+      "internalID": "900050",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "50 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd50",
+      "referenceName": "Local test 50",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "100.00",
+      "familyShareable": false,
+      "internalID": "900100",
+      "localizations": [
+        {
+          "description": "Local test only. No unlocks.",
+          "displayName": "100 Dollar Tip",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "local.test.optionaltips.usd100",
+      "referenceName": "Local test 100",
+      "type": "Consumable"
+    }
+  ],
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

@@ -1,0 +1,65 @@
+name: TipJarDemo
+packages:
+  OptionalTips:
+    path: ../..
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    GENERATE_INFOPLIST_FILE: YES
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  TipJarDemo-iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources: [DemoApp.swift]
+    dependencies:
+      - package: OptionalTips
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.OptionalTipsDemo
+        TARGETED_DEVICE_FAMILY: "1,2"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+  TipJarDemo-macOS:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources: [DemoApp.swift]
+    dependencies:
+      - package: OptionalTips
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.OptionalTipsDemo
+  TipJarDemoTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - ../../Tests/OptionalTipsTests/TipTests.swift
+      - path: ../../Tests/OptionalTipsTests/LocalTips.storekit
+        buildPhase: resources
+    dependencies:
+      - target: TipJarDemo-iOS
+      - package: OptionalTips
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.example.OptionalTipsDemoTests
+schemes:
+  TipJarDemo-iOS:
+    build:
+      targets:
+        TipJarDemo-iOS: all
+    test:
+      targets: [TipJarDemoTests]
+      commandLineArguments:
+        --testing: true
+    run:
+      storeKitConfiguration: ../../Tests/OptionalTipsTests/LocalTips.storekit
+  TipJarDemo-macOS:
+    build:
+      targets:
+        TipJarDemo-macOS: all
+    run:
+      storeKitConfiguration: ../../Tests/OptionalTipsTests/LocalTips.storekit

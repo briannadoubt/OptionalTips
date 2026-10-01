@@ -112,7 +112,7 @@ isolation for unrelated/unverified transactions. These are local
 simulated transactions, never proof of a production purchase.
 
 CI runs standalone tests, the Mac example build, and signed local iOS StoreKit
-tests on standard GitHub-hosted macOS runners. A separate host app is responsible
+tests on standard GitHub-hosted macOS runners, including an Intel simulator host. A separate host app is responsible
 for its own UI regression and actual sandbox verification.
 
 ## Developer and agent guides

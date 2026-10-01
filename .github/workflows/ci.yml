@@ -20,7 +20,7 @@ jobs:
           -scheme TipJarDemo-macOS -destination 'platform=macOS'
           CODE_SIGNING_ALLOWED=NO build
   storekit:
-    runs-on: macos-15
+    runs-on: macos-15-intel
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -38,6 +38,10 @@ jobs:
           with open(os.environ['GITHUB_ENV'], 'a') as stream:
               stream.write('TIP_SIMULATOR_ID=' + phones[0]['udid'] + '\n')
           PY
+      - name: Boot simulator before test launch
+        run: |
+          xcrun simctl boot "$TIP_SIMULATOR_ID" || true
+          xcrun simctl bootstatus "$TIP_SIMULATOR_ID" -b
       - name: Signed local StoreKit tests
         run: >-
           xcodebuild -project Examples/TipJarDemo/TipJarDemo.xcodeproj

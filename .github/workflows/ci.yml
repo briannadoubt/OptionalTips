@@ -21,7 +21,7 @@ jobs:
           CODE_SIGNING_ALLOWED=NO build
   storekit:
     runs-on: macos-15-intel
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - name: Select available iPhone simulator

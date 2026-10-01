@@ -2,14 +2,17 @@ import SwiftUI
 import OptionalTips
 
 @main @MainActor struct TipJarDemoApp: App {
+    private static var isTestHost: Bool {
+        ProcessInfo.processInfo.arguments.contains("--testing") || NSClassFromString("XCTestCase") != nil
+    }
     // These identifiers exist only in the checked-in local StoreKit fixture.
     // Replace them with your app's confirmed products before production use.
     @State private var tips = TipStore(configuration: .init(
         appName: "Demo",
-        products: TipConfiguration.amountsUSD.map {
+        products: TipJarDemoApp.isTestHost ? [] : TipConfiguration.amountsUSD.map {
             .init(id: "local.test.optionaltips.usd\($0)", intendedUSD: $0)
         }
-    ), listenForUpdates: !ProcessInfo.processInfo.arguments.contains("--testing"))
+    ), listenForUpdates: !TipJarDemoApp.isTestHost)
     @State private var showsTips = false
 
     var body: some Scene {

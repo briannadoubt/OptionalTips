@@ -7,6 +7,7 @@ permissions:
 jobs:
   package:
     runs-on: macos-15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Swift version
@@ -20,6 +21,7 @@ jobs:
           CODE_SIGNING_ALLOWED=NO build
   storekit:
     runs-on: macos-15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Select available iPhone simulator
